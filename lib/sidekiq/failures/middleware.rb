@@ -11,6 +11,7 @@ module Sidekiq
         raise
       rescue Exception => e
         raise e if skip_failure?
+        Honeybadger.notify(e)
 
         msg['error_message'] = e.message
         msg['error_class'] = e.class.name
